@@ -8,6 +8,7 @@ const int green = 9;
 const int button = A0;
 const int button_led = LED_BUILTIN;
 const int noise = 1;
+const int debounce_delay = 5;
 
 void setup() {
   pinMode(red, OUTPUT);
@@ -52,7 +53,7 @@ bool waitClick(long wait) {
   long start_time = millis();
 
   do {
-    delay(1);
+    delay(debounce_delay);
     input = digitalRead(button);
     if (millis() - start_time >= wait)
       return false;
@@ -61,7 +62,7 @@ bool waitClick(long wait) {
   digitalWrite(button_led, HIGH);
 
   do {
-    delay(1);
+    delay(debounce_delay);
     input = digitalRead(button);
   } while (input != HIGH);
 
