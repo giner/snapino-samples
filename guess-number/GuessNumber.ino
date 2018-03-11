@@ -6,6 +6,7 @@ const int red = 11;
 const int yellow = 10;
 const int green = 9;
 const int button = A0;
+const int button_led = LED_BUILTIN;
 const int noise = 1;
 
 void setup() {
@@ -13,6 +14,7 @@ void setup() {
   pinMode(yellow, OUTPUT);
   pinMode(green, OUTPUT);
   pinMode(button, INPUT);
+  pinMode(button_led, OUTPUT);
   randomSeed(analogRead(noise));
 }
 
@@ -56,10 +58,14 @@ bool waitClick(long wait) {
       return false;
   } while (input != LOW);
 
+  digitalWrite(button_led, HIGH);
+
   do {
     delay(1);
     input = digitalRead(button);
   } while (input != HIGH);
+
+  digitalWrite(button_led, LOW);
 
   return true;
 }
